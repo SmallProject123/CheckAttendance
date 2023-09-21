@@ -85,6 +85,7 @@
             background-color: #0056b3;
         }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -92,7 +93,7 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th colspan="5">Tổng tiền: <span id="totalAmount"></span></th>
+                    <th colspan="5">Tổng tiền: <span id="totalAmount"></span> <br><button class="btn btn-info">09/10 buổi</button></th> 
                 </tr>
                 <tr>
                     <th>Số Thứ Tự</th>
@@ -108,6 +109,8 @@
         </table>
         <div class="pagination" id="pagination"></div>
     </div>
+    <div class="container"><canvas id="barChart" width="400" height="200"></canvas></div>
+    
 
     <script>
         // Dữ liệu mẫu
@@ -149,7 +152,7 @@
         function hienThiTongTien(data) {
             const tongTien = tinhTongTienCoMat(data);
             const totalAmountElement = document.getElementById("totalAmount");
-            totalAmountElement.textContent = tongTien + " VND";
+            totalAmountElement.textContent = tongTien;
         }
 
         // Hàm để hiển thị dữ liệu trên trang
@@ -195,6 +198,38 @@
         displayData(1);
         displayPagination();
         hienThiTongTien(data);
+
+        // Biểu đồ thống kê
+    const ctx = document.getElementById('barChart').getContext('2d');
+    const tinhTrangData = {
+        labels: ['Có mặt', 'Nghỉ học'],
+        datasets: [{
+            label: 'Thống kê tình trạng',
+            data: [data.filter(item => item.TinhTrang === 'Có mặt').length, data.filter(item => item.TinhTrang === 'Nghỉ học').length],
+            backgroundColor: [
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+            ],
+            borderColor: [
+                'rgba(75, 192, 192, 1)',
+                'rgba(255, 99, 132, 1)',
+            ],
+            borderWidth: 1,
+        }]
+    };
+    const options = {
+        scales: {
+            y: {
+                beginAtZero: true,
+                stepSize: 1,
+            }
+        }
+    };
+    const barChart = new Chart(ctx, {
+        type: 'bar',
+        data: tinhTrangData,
+        options: options,
+    });
     </script>
 </body>
 </html>
