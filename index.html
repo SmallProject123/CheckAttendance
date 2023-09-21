@@ -64,6 +64,26 @@
         .total-amount {
             color: #007bff;
         }
+
+        .pagination {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .pagination a {
+            padding: 5px 10px;
+            margin: 0 5px;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 3px;
+            text-decoration: none;
+        }
+
+        .pagination a:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
@@ -72,90 +92,109 @@
         <table class="table">
             <thead>
                 <tr>
+                    <th colspan="5">Tổng tiền: <span id="totalAmount"></span></th>
+                </tr>
+                <tr>
                     <th>Số Thứ Tự</th>
-                    <th>Đơn Giá</th>
+                    <th>Đơn Giá (VND)</th>
                     <th>Ngày</th>
                     <th>Ghi Chú</th>
                     <th>Tình trạng</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>70,000 VND</td>
-                    <td>13-08-2023</td>
-                    <td>-</td>
-                    <td><button class="btn btn-success">Có mặt</button></td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>70,000 VND</td>
-                    <td>17-08-2023</td>
-                    <td>-</td>
-                    <td><button class="btn btn-success">Có mặt</button></td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>70,000 VND</td>
-                    <td>24-08-2023</td>
-                    <td>-</td>
-                    <td><button class="btn btn-success">Có mặt</button></td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td>70,000 VND</td>
-                    <td>27-08-2023</td>
-                    <td>-</td>
-                    <td><button class="btn btn-success">Có mặt</button></td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td>70,000 VND</td>
-                    <td>31-08-2023</td>
-                    <td>-</td>
-                    <td><button class="btn btn-success">Có mặt</button></td>
-                </tr>
-                <tr>
-                    <td>6</td>
-                    <td>70,000 VND</td>
-                    <td>03-09-2023</td>
-                    <td>Nghỉ lễ</td>
-                    <td><button class="btn btn-danger">Nghỉ</button></td>
-                </tr>
-                <tr>
-                    <td>7</td>
-                    <td>70,000 VND</td>
-                    <td>07-09-2023</td>
-                    <td>-</td>
-                    <td><button class="btn btn-success">Có mặt</button></td>
-                </tr>
-                <tr>
-                    <td>8</td>
-                    <td>70,000 VND</td>
-                    <td>10-09-2023</td>
-                    <td>-</td>
-                    <td><button class="btn btn-success">Có mặt</button></td>
-                </tr>
-                <tr>
-                    <td>9</td>
-                    <td>70,000 VND</td>
-                    <td>14-09-2023</td>
-                    <td>-</td>
-                    <td><button class="btn btn-success">Có mặt</button></td>
-                </tr>
-                <tr>
-                    <td>10</td>
-                    <td>70,000 VND</td>
-                    <td>21-09-2023</td>
-                    <td>-</td>
-                    <td><button class="btn btn-success">Có mặt</button></td>
-                </tr>
-                <tr>
-                    <td colspan="2" class="text-uppercase">TỔNG</td>
-                    <td colspan="3" class="total-amount">630,000 VND</td>
-                </tr>
+                <!-- Dữ liệu mẫu sẽ được cập nhật bằng JavaScript -->
             </tbody>
         </table>
+        <div class="pagination" id="pagination"></div>
     </div>
+
+    <script>
+        // Dữ liệu mẫu
+        const data = [
+            { STT: 1, DonGia: 70000, Ngay: "13-08-2023", GhiChu: "-", TinhTrang: "Có mặt" },
+            { STT: 2, DonGia: 70000, Ngay: "17-08-2023", GhiChu: "-", TinhTrang: "Có mặt" },
+            { STT: 3, DonGia: 70000, Ngay: "24-08-2023", GhiChu: "-", TinhTrang: "Có mặt" },
+            { STT: 4, DonGia: 70000, Ngay: "27-08-2023", GhiChu: "-", TinhTrang: "Có mặt" },
+            { STT: 5, DonGia: 70000, Ngay: "31-08-2023", GhiChu: "-", TinhTrang: "Có mặt" },
+            { STT: 6, DonGia: 70000, Ngay: "03-09-2023", GhiChu: "Nghỉ lễ", TinhTrang: "Nghỉ học" },
+            { STT: 7, DonGia: 70000, Ngay: "07-09-2023", GhiChu: "-", TinhTrang: "Có mặt" },
+            { STT: 8, DonGia: 70000, Ngay: "10-09-2023", GhiChu: "-", TinhTrang: "Có mặt" },
+            { STT: 9, DonGia: 70000, Ngay: "14-09-2023", GhiChu: "-", TinhTrang: "Có mặt" },
+            { STT: 10, DonGia: 70000, Ngay: "21-09-2023", GhiChu: "-", TinhTrang: "Có mặt" },           
+        ];
+        // Hàm để định dạng số với dấu chấm phân cách hàng nghìn
+        function formatNumberWithCommas(number) {
+            return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+        // Số dòng hiển thị trên mỗi trang
+        const rowsPerPage = 10;
+
+        // Hàm để tính tổng tiền dựa trên điều kiện và định dạng số hàng nghìn
+        function tinhTongTienCoMat(data) {
+            let tongTien = 0;
+
+            for (let i = 0; i < data.length; i++) {
+                if (data[i].TinhTrang === "Có mặt") {
+                    tongTien += data[i].DonGia;
+                }
+            }
+
+            // Định dạng số hàng nghìn bằng hàm formatNumberWithCommas()
+            return formatNumberWithCommas(tongTien) + " VND";
+        }
+
+        // Hàm để hiển thị tổng tiền ở phía trên bảng
+        function hienThiTongTien(data) {
+            const tongTien = tinhTongTienCoMat(data);
+            const totalAmountElement = document.getElementById("totalAmount");
+            totalAmountElement.textContent = tongTien + " VND";
+        }
+
+        // Hàm để hiển thị dữ liệu trên trang
+        function displayData(page) {
+            const tbody = document.querySelector("tbody");
+            tbody.innerHTML = "";
+            
+            const startIndex = (page - 1) * rowsPerPage;
+            const endIndex = page * rowsPerPage;
+
+            for (let i = startIndex; i < endIndex && i < data.length; i++) {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${data[i].STT}</td>
+                    <td>${data[i].DonGia}</td>
+                    <td>${data[i].Ngay}</td>
+                    <td>${data[i].GhiChu}</td>
+                    <td><button class="btn ${data[i].TinhTrang === 'Có mặt' ? 'btn-success' : 'btn-danger'}">${data[i].TinhTrang}</button></td>
+                `;
+                tbody.appendChild(row);
+            }
+        }
+
+        // Hàm để hiển thị phân trang
+        function displayPagination() {
+            const pagination = document.getElementById("pagination");
+            pagination.innerHTML = "";
+
+            const totalPages = Math.ceil(data.length / rowsPerPage);
+
+            for (let i = 1; i <= totalPages; i++) {
+                const pageLink = document.createElement("a");
+                pageLink.href = "#";
+                pageLink.textContent = i;
+                pageLink.addEventListener("click", function () {
+                    displayData(i);
+                });
+
+                pagination.appendChild(pageLink);
+            }
+        }
+        // Hiển thị trang đầu tiên khi trang web được tải
+        displayData(1);
+        displayPagination();
+        hienThiTongTien(data);
+    </script>
 </body>
 </html>
