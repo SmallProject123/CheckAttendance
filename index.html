@@ -93,11 +93,12 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th colspan="5">Tổng tiền: <span id="totalAmount"></span> <br><button class="btn btn-info">09/10 buổi</button></th> 
+                    <!-- Tổng tiền: <span id="totalAmount"></span> <br> -->
+                    <th colspan="5"><button class="btn btn-info">09/10 buổi</button></th> 
                 </tr>
                 <tr>
                     <th>Số Thứ Tự</th>
-                    <th>Đơn Giá (VND)</th>
+                    <!-- <th>Đơn Giá (VND)</th> -->
                     <th>Ngày</th>
                     <th>Ghi Chú</th>
                     <th>Tình trạng</th>
@@ -167,7 +168,7 @@
                 const row = document.createElement("tr");
                 row.innerHTML = `
                     <td>${data[i].STT}</td>
-                    <td>${data[i].DonGia}</td>
+                    
                     <td>${data[i].Ngay}</td>
                     <td>${data[i].GhiChu}</td>
                     <td><button class="btn ${data[i].TinhTrang === 'Có mặt' ? 'btn-success' : 'btn-danger'}">${data[i].TinhTrang}</button></td>
