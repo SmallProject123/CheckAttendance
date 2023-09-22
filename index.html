@@ -93,11 +93,10 @@
         <table class="table">
             <thead>
                 <tr>
-                    <!-- Tổng tiền: <span id="totalAmount"></span> <br> -->
-                    <th colspan="5"><button class="btn btn-info">09/10 buổi</button></th> 
+                    <th colspan="5">Số buổi đã học trong tháng: <span id="totalAmount"></span> <button class="btn btn-info">09/10 buổi</button></th> 
                 </tr>
                 <tr>
-                    <th>Số Thứ Tự</th>
+                    <th style="width: 100px;">Số Thứ Tự</th>
                     <!-- <th>Đơn Giá (VND)</th> -->
                     <th>Ngày</th>
                     <th>Ghi Chú</th>
@@ -198,7 +197,7 @@
         // Hiển thị trang đầu tiên khi trang web được tải
         displayData(1);
         displayPagination();
-        hienThiTongTien(data);
+        // hienThiTongTien(data);
 
         // Biểu đồ thống kê
     const ctx = document.getElementById('barChart').getContext('2d');
