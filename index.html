@@ -170,7 +170,7 @@
                     <td>${data[i].STT}</td>
                     <td>${data[i].Ngay}</td>
                     <td>${data[i].GhiChu}</td>
-                    <td><button class="btn ${data[i].TinhTrang === 'Có mặt' ? 'btn-success' : 'btn-danger'} btn-present" data-ngay="${data[i].Ngay}">Có mặt</button></td>
+                    <td><button class="btn ${data[i].TinhTrang === 'Có mặt' ? 'btn-success' : 'btn-danger'} btn-present" data-ngay="${data[i].Ngay}">${data[i].TinhTrang}</button></td>
                 `;
                 tbody.appendChild(row);
             }
