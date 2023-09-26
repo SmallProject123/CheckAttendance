@@ -125,6 +125,7 @@
             { STT: 8, DonGia: 70000, Ngay: "10-09-2023", GhiChu: "-", TinhTrang: "Có mặt" },
             { STT: 9, DonGia: 70000, Ngay: "14-09-2023", GhiChu: "-", TinhTrang: "Có mặt" },
             { STT: 10, DonGia: 70000, Ngay: "21-09-2023", GhiChu: "-", TinhTrang: "Có mặt" },           
+            { STT: 11, DonGia: 70000, Ngay: "24-09-2023", GhiChu: "-", TinhTrang: "Có mặt" },           
         ];
         // Hàm để định dạng số với dấu chấm phân cách hàng nghìn
         function formatNumberWithCommas(number) {
@@ -167,10 +168,9 @@
                 const row = document.createElement("tr");
                 row.innerHTML = `
                     <td>${data[i].STT}</td>
-                    
                     <td>${data[i].Ngay}</td>
                     <td>${data[i].GhiChu}</td>
-                    <td><button class="btn ${data[i].TinhTrang === 'Có mặt' ? 'btn-success' : 'btn-danger'}">${data[i].TinhTrang}</button></td>
+                    <td><button class="btn ${data[i].TinhTrang === 'Có mặt' ? 'btn-success' : 'btn-danger'} btn-present" data-ngay="${data[i].Ngay}">Có mặt</button></td>
                 `;
                 tbody.appendChild(row);
             }
@@ -230,6 +230,42 @@
         data: tinhTrangData,
         options: options,
     });
+
+    document.addEventListener("DOMContentLoaded", function () {
+    const presentButtons = document.querySelectorAll(".btn-present");
+
+    presentButtons.forEach((button) => {
+        button.addEventListener("click", function () {
+            const ngay = this.getAttribute("data-ngay");
+            const buoi = this.getAttribute("data-buoi");
+            const noidung = this.getAttribute("data-noidung");
+
+            // Tạo cửa sổ modal (popup)
+            const modal = document.createElement("div");
+            modal.classList.add("modal");
+
+            // Tạo nội dung của popup
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h2>${ngay} - ${buoi}</h2>
+                    <p>${noidung}</p>
+                    <p>Phần dặn dò: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+            `;
+
+            // Đóng popup khi nhấp vào nút đóng (dấu X)
+            const closeButton = modal.querySelector(".close");
+            closeButton.addEventListener("click", function () {
+                modal.style.display = "none";
+            });
+
+            // Hiển thị popup
+            document.body.appendChild(modal);
+        });
+    });
+});
+
     </script>
 </body>
 </html>
