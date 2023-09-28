@@ -93,7 +93,7 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th colspan="5">Số buổi đã học trong tháng: <span id="totalAmount"></span> <button class="btn btn-info">10/10 buổi</button></th> 
+                    <th colspan="5">Số buổi đã học trong tháng: <span id="totalAmount"></span> <button class="btn btn-info">01/10 buổi</button></th> 
                 </tr>
                 <tr>
                     <th style="width: 50px;">Số Thứ Tự</th>
@@ -125,8 +125,14 @@
             { STT: 8, DonGia: 70000, Ngay: "10-09-2023", GhiChu: "-", TinhTrang: "Có mặt" },
             { STT: 9, DonGia: 70000, Ngay: "14-09-2023", GhiChu: "-", TinhTrang: "Có mặt" },
             { STT: 10, DonGia: 70000, Ngay: "21-09-2023", GhiChu: "-", TinhTrang: "Có mặt" },           
-            { STT: 11, DonGia: 70000, Ngay: "24-09-2023", GhiChu: "-", TinhTrang: "Có mặt" },           
+            { STT: 11, DonGia: 70000, Ngay: "24-09-2023", GhiChu: "Đã hoàn thành tháng", TinhTrang: "Có mặt" },           
+            { STT: 12, DonGia: 70000, Ngay: "28-09-2023", GhiChu: "Cuối tuần 01/10 làm bài kiểm tra nhỏ về từ vựng và ngữ pháp", TinhTrang: "Có mặt" },           
         ];
+        data.sort((a, b) => {
+            const dateA = new Date(a.Ngay);
+            const dateB = new Date(b.Ngay);
+            return dateB - dateA;
+        });
         // Hàm để định dạng số với dấu chấm phân cách hàng nghìn
         function formatNumberWithCommas(number) {
             return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -134,6 +140,7 @@
 
         // Số dòng hiển thị trên mỗi trang
         const rowsPerPage = 10;
+        
 
         // Hàm để tính tổng tiền dựa trên điều kiện và định dạng số hàng nghìn
         function tinhTongTienCoMat(data) {
@@ -158,42 +165,46 @@
 
         // Hàm để hiển thị dữ liệu trên trang
         function displayData(page) {
-            const tbody = document.querySelector("tbody");
-            tbody.innerHTML = "";
-            
-            const startIndex = (page - 1) * rowsPerPage;
-            const endIndex = page * rowsPerPage;
+        const tbody = document.querySelector("tbody");
+        tbody.innerHTML = "";
 
-            for (let i = startIndex; i < endIndex && i < data.length; i++) {
-                const row = document.createElement("tr");
-                row.innerHTML = `
-                    <td>${data[i].STT}</td>
-                    <td>${data[i].Ngay}</td>
-                    <td>${data[i].GhiChu}</td>
-                    <td><button class="btn ${data[i].TinhTrang === 'Có mặt' ? 'btn-success' : 'btn-danger'} btn-present" data-ngay="${data[i].Ngay}">${data[i].TinhTrang}</button></td>
-                `;
-                tbody.appendChild(row);
-            }
+        const startIndex = (page - 1) * rowsPerPage;
+        const endIndex = page * rowsPerPage;
+
+        for (let i = startIndex; i < endIndex && i < data.length; i++) {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                <td>${data[i].STT}</td>
+                <td>${data[i].Ngay}</td>
+                <td>${data[i].GhiChu}</td>
+                <td><button class="btn ${data[i].TinhTrang === 'Có mặt' ? 'btn-success' : 'btn-danger'} btn-present" data-ngay="${data[i].Ngay}">${data[i].TinhTrang}</button></td>
+            `;
+            tbody.appendChild(row);
         }
+    }
 
         // Hàm để hiển thị phân trang
         function displayPagination() {
-            const pagination = document.getElementById("pagination");
-            pagination.innerHTML = "";
+        const pagination = document.getElementById("pagination");
+        pagination.innerHTML = "";
 
-            const totalPages = Math.ceil(data.length / rowsPerPage);
+        const totalPages = Math.ceil(data.length / rowsPerPage);
 
-            for (let i = 1; i <= totalPages; i++) {
-                const pageLink = document.createElement("a");
-                pageLink.href = "#";
-                pageLink.textContent = i;
-                pageLink.addEventListener("click", function () {
-                    displayData(i);
-                });
-
-                pagination.appendChild(pageLink);
-            }
+        for (let i = totalPages; i >= 1; i--) {
+            const pageLink = document.createElement("a");
+            pageLink.href = "#";
+            pageLink.textContent = i;
+            pageLink.addEventListener("click", function () {
+                displayData(i);
+            });
+            pagination.appendChild(pageLink);
         }
+        }
+        document.addEventListener("DOMContentLoaded", function () {
+            const totalPages = Math.ceil(data.length / rowsPerPage);
+            displayData(totalPages);
+            displayPagination();
+        });
         // Hiển thị trang đầu tiên khi trang web được tải
         displayData(1);
         displayPagination();
