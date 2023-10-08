@@ -93,7 +93,7 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th colspan="5">Số buổi đã học trong tháng: <span id="totalAmount"></span> <button class="btn btn-info">01/10 buổi</button></th> 
+                    <th colspan="5">Số buổi đã học trong tháng: <span id="totalAmount"></span> <button class="btn btn-info">04/10 buổi</button></th> 
                 </tr>
                 <tr>
                     <th style="width: 50px;">Số Thứ Tự</th>
@@ -127,6 +127,9 @@
             { STT: 10, DonGia: 70000, Ngay: "21-09-2023", GhiChu: "-", TinhTrang: "Có mặt" },           
             { STT: 11, DonGia: 70000, Ngay: "24-09-2023", GhiChu: "Đã hoàn thành tháng", TinhTrang: "Có mặt" },           
             { STT: 12, DonGia: 70000, Ngay: "28-09-2023", GhiChu: "Cuối tuần 01/10 làm bài kiểm tra nhỏ về từ vựng và ngữ pháp", TinhTrang: "Có mặt" },           
+            { STT: 13, DonGia: 70000, Ngay: "01-10-2023", GhiChu: "-", TinhTrang: "Có mặt" },           
+            { STT: 14, DonGia: 70000, Ngay: "05-10-2023", GhiChu: "-", TinhTrang: "Có mặt" },           
+            { STT: 15, DonGia: 70000, Ngay: "08-10-2023", GhiChu: "-", TinhTrang: "Có mặt" }          
         ];
         data.sort((a, b) => {
             const dateA = new Date(a.Ngay);
@@ -139,7 +142,7 @@
         }
 
         // Số dòng hiển thị trên mỗi trang
-        const rowsPerPage = 10;
+        const rowsPerPage = 11;
         
 
         // Hàm để tính tổng tiền dựa trên điều kiện và định dạng số hàng nghìn
