@@ -126,23 +126,23 @@
             { STT: 9, DonGia: 70000, Ngay: "14-09-2023", GhiChu: "-", TinhTrang: "Có mặt" },
             { STT: 10, DonGia: 70000, Ngay: "21-09-2023", GhiChu: "-", TinhTrang: "Có mặt" },           
             { STT: 11, DonGia: 70000, Ngay: "24-09-2023", GhiChu: "Đã hoàn thành tháng", TinhTrang: "Có mặt" },           
-            { STT: 12, DonGia: 70000, Ngay: "28-09-2023", GhiChu: "Cuối tuần 01/10 làm bài kiểm tra nhỏ về từ vựng và ngữ pháp", TinhTrang: "Có mặt" },           
-            { STT: 13, DonGia: 70000, Ngay: "01-10-2023", GhiChu: "-", TinhTrang: "Có mặt" },           
-            { STT: 14, DonGia: 70000, Ngay: "05-10-2023", GhiChu: "-", TinhTrang: "Có mặt" },           
-            { STT: 15, DonGia: 70000, Ngay: "08-10-2023", GhiChu: "-", TinhTrang: "Có mặt" }          
+            { STT: 12, DonGia: 70000, Ngay: "28-09-2023", GhiChu: "Cuối tuần 01/10 làm bài kiểm tra nhỏ về từ vựng và ngữ pháp", TinhTrang: "Có mặt" }, 
+            { STT: 13, DonGia: 70000, Ngay: "01-10-2023", GhiChu: "-", TinhTrang: "Có mặt" },                    
+            { STT: 14, DonGia: 70000, Ngay: "05-10-2023", GhiChu: "-", TinhTrang: "Có mặt" },                    
+            { STT: 15, DonGia: 70000, Ngay: "08-10-2023", GhiChu: "-", TinhTrang: "Có mặt" },                    
         ];
-        data.sort((a, b) => {
-            const dateA = new Date(a.Ngay);
-            const dateB = new Date(b.Ngay);
-            return dateB - dateA;
-        });
+        function sortDataBySTT(data) {
+            data.sort((a, b) => {
+                return a.STT - b.STT;
+            });
+        }
         // Hàm để định dạng số với dấu chấm phân cách hàng nghìn
         function formatNumberWithCommas(number) {
             return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
 
         // Số dòng hiển thị trên mỗi trang
-        const rowsPerPage = 11;
+        const rowsPerPage = 10;
         
 
         // Hàm để tính tổng tiền dựa trên điều kiện và định dạng số hàng nghìn
